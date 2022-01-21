@@ -1,0 +1,20 @@
+on: [push,pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install signalling deps
+        run: cd signalling && npm i
+      - name: Lint signalling
+        run: cd signalling && npm run lint
+      - name: Build signalling
+        run: cd signalling && npm run build
+      - name: Install www deps
+        run: cd www && npm i
+      - name: Lint www
+        run: cd www && npm run lint
+      - name: Type check www
+        run: cd www && npm run type-check
